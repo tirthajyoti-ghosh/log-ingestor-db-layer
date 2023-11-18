@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "ts-node index.ts",
-    "build": "tsc -p ."
+    "build": "npx tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
