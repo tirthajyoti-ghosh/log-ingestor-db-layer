@@ -14,7 +14,7 @@ import logger from "morgan";
 
 const app = express();
 
-const serverPort = process.env.SERVER_PORT || 80;
+const serverPort = process.env.SERVER_PORT || 3000;
 const mongoDatabase = process.env.MONGO_DB || "logs-manager";
 const mongoCollection = process.env.MONGO_COLLECTION || "logs";
 const mongoUser = process.env.MONGO_USER;
@@ -75,12 +75,16 @@ function startServer() {
                 res: Response
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
-                    const { body } =
+                    let { body } =
                         req.body;
 
                     const collection: Collection<any> =
                         app.locals.db.collection(mongoCollection);
 
+                    // if body is not an array then wrap in an array
+                    if (!Array.isArray(body)) {
+                        body = [body];
+                    }
                     const insertResult: InsertManyResult = await collection.insertMany(
                         body
                     );
@@ -110,7 +114,6 @@ function startServer() {
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
                     const {
-                        
                         queryFilter,
                         projection,
                         limit,
