@@ -76,7 +76,7 @@ function startServer() {
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
                     let { body } =
-                        req.body;
+                        JSON.parse(req.body);
 
                     const collection: Collection<any> =
                         app.locals.db.collection(mongoCollection);
