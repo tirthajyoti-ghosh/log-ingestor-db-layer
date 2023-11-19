@@ -67,7 +67,7 @@ function startServer() {
             console.log(`${serviceName} listening on port ${serverPort}`)
         );
 
-        // insertOne - https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/
+        // insertMany - https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/
         app.post(
             "/insert",
             async (
@@ -75,7 +75,7 @@ function startServer() {
                 res: Response
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
-                    const key = req.headers["Authorization"];
+                    const key = req.headers["authorization"];
                     if (key !== process.env.SECRET_KEY) {
                         return res.sendStatus(401);
                     }
@@ -118,7 +118,7 @@ function startServer() {
                 res: Response
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
-                    const key = req.headers["Authorization"];
+                    const key = req.headers["authorization"];
                     if (key !== process.env.SECRET_KEY) {
                         return res.sendStatus(401);
                     }
