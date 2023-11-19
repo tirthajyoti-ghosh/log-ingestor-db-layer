@@ -75,6 +75,11 @@ function startServer() {
                 res: Response
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
+                    const key = req.headers["Authorization"];
+                    if (key !== process.env.SECRET_KEY) {
+                        return res.sendStatus(401);
+                    }
+
                     let { body } =
                         JSON.parse(req.body);
 
@@ -113,6 +118,11 @@ function startServer() {
                 res: Response
             ): Promise<express.Response<any, Record<string, any>>> => {
                 try {
+                    const key = req.headers["Authorization"];
+                    if (key !== process.env.SECRET_KEY) {
+                        return res.sendStatus(401);
+                    }
+
                     const {
                         queryFilter,
                         projection,
